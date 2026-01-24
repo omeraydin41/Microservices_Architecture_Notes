@@ -19,5 +19,8 @@ namespace Microservices.Catalog.Api.Features.Courses
         public Guid CategoryId { get; set; }//kursun kategorisi
         public Category Category { get; set; } = default!; //her kursun bir kategorisi olmak zorunda 
         //Course den Category e bağlanmak için her kurs kategoriye bağlı olacak ef core yaklaşımı 
+
+        public Feature Feature { get; set; } = default!;//HER KURSUN BİR ÖZELLİĞİ OLMAK ZORUNDA AMA COMPİLERE SADECE UYARI VERİRİZ . ISTERSK NULL OLABILIR  NİYET BELLİ EDİYORUZ
+        //her kursun bir özelliği olmak zorunda // Navigation Property ile kurs özlleikleri FEATURE CLASSINDAN ALINDI 
     }
 }
