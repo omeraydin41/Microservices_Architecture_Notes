@@ -1,63 +1,49 @@
+Ders 19: tum MICROSERVICELERDEN NASIL BIR BASARILI DONUS TIPI BELIRLEYECEGIZ
+Tum servicelerde hata mesaji alindiginda PROBLEM DETAILS yapisi kullanilacak. 
+Basarili mesaj dondugunde kullanilmasi icin ortak bir model kullanacagiz (bunlarin hepsi SHARED LIBRARYLERDE TANIMLANACAK).
 
-Ders 19 : tüm MICROSERVICELERDEN NASIL BÝR BAÞARILI DÖNÜÞ TÝPÝ BELÝRLEYECEÐÝZ
+Basarili mesaj dondugunde iki ihtimal var:
+	1)Mesela bir operasyon yapildiginda (delete, update vb.) geriye responsum (cevabin) bodysinde bir sey donmeye gerek yok, 204 donulse yeter. 
+	(id'si 5 olan data guncellendi gibi bir mesaj donmeye gerek yok, govdede sadece islem basarili).
 
-Tüm servicelerde hata mesajý alýndýðýnda PROBLEM DETAILS yapýsý kullanýlacak.
-Baþarýlý mesaj döndüðünde kullanýlmasý için ortak bir model kullanacaðýz (bunlarýn hepsi SHARED LIBRARYLERDE TANIMLANACAK).
+	2)Geriye body icine data donulmesi gereken durumlar: mesela product datasinda basarili bir silme islemi yapildi, SONRA TUM PRODUCT DATASINI GERIYE LISTE OLARAK DONULMESI ISTENEBILIR.
 
-Baþarýlý mesaj döndüðünde iki ihtimal var:
-1. Mesela bir operasyon yapýldýðýnda (delete, update vb.) geriye responsun (cevabýn) bodysinde bir þey dönmeye gerek yok, 204 dönülse yeter. 
-(id'si 5 olan data güncellendi gibi bir mesaj dönmeye gerek yok, gövdede sadece iþlem baþarýlý).
+Iste istenilen bu islemi bir sinifla WRAPLAYALIM (SIRALAYALIM).
 
-2. Geriye body içine data dönülmesi gereken durumlar: mesela product datasýnda baþarýlý bir silme iþlemi yapýldý,
-SONRA TÜM PRODUCT DATASINI GERÝYE LÝSTE OLARAK DÖNÜLMESÝ ÝSTENEBÝLÝR.
+SERVICE RESULT: Oyle bir class olsun ki hata oldugunda hata mesaji donmek icin bir onceki derste olan PROBLEM DETAILS icin SERVICE RESULT classi icinden 
+"ProblemDetails" adinda PROPERTY DOLDURULABILSIN.
+Eger basarili ise bir sey doldurmaya gerek kalmaz, 204 doner.
 
-
-Ýþte istenilen bu iþlemi bir sýnýfla WRAPLAYALIM(SIRALAYALIM).
-
-SERVICE RESULT : Öyle bir class olsun ki hata olduðunda hata mesajý dönmek için bir önceki derste olan PROBLEM DETAILS için
-SERVICE RESULT classý içinden "ProblemDetails" adýnda PROPERTY DOLDURULABÝLSÝN.
-
-Eðer baþarýlý ise bir þey doldurmaya gerek kalmaz, 204 döner.
-
-Kýsaca UPDATE, DELETE GÝBÝ ÝÞLEMLERDE "SERVICE RESULT" CLASSI DÖNÜLEBÝLÝR.
-.net bunu JSON'a serialize edecek. Zaten içinde 400 veya 500 yoksa baþarýlýdýr; varsa eðer client direkt PROBLEM DETAILS PROPERTYSÝNE bakar.
-Zaten mesajda hata varsa araya da girilip önceki derste iþlenen PROBLEM DETAILS mesajý dönecek.
+Kisaca UPDATE, DELETE GIBI ISLEMLERDE "SERVICE RESULT" CLASSI DONULEBILIR. 
+.net bunu JSON'a serialize edecek. Zaten icinde 400 veya 500 yoksa basarilidir; varsa eger client direkt PROBLEM DETAILS PROPERTYSINE bakar. 
+Zaten mesajda hata varsa araya da girilip onceki derste islenen PROBLEM DETAILS mesaji donecek.
 
 
-Mesaj baþarýlý olup geriye data ile beraber dönülmek istendiðinde:  mesaj modeli olan ServiceResult GENERIC OLARAK KULLANILIR.
-ServiceResult<T> : Service result içinde DATA PROPERTYSÝ olacak; bu generikteki data alaný "
-örnek olarak baþarýlý bir Product tablosunda silme iþleminden sonra güncel tabloyu liste halinde tutmak için kullanýlabilecek".
-
-Mesaj 200 ile baþlarsa client içindeki DATA PROPERTYSÝNE bakacak, 400 VEYA 500 ile baþlarsa ProblemDetails içine bakacak.
-
-Kodlarýmýzý yazarken ServiceResulttan sürekli nesne almak yerine, newlemek yerine yardýmcý STATIC FACTORY METHOD yazacaðýz. Bu methodlar geriye sadece ServiceResult dönen methodlar olacak. Sürekli her yerde newler dolaþmayacak.
-
-Zaten bu newleri kontrol altýna almak için 5 tane DESIGN PATTERN VAR.
-Biz bunlardan 
-	1) FACTORY METHOD 
-	2) ABSTRACT FACTORY ALTINA GÝREN STATIC FACTORY METHOD YAKLAÞIMI KULLANACAÐIZ.
-
-Servisler arasý senkron iletiþim için: REFIT KÜTÜPHANESÝ KULLANILACAK. 
-Separation of Concerns (SoC) mantýðýna çok uygundur. 
-
-Bir uygulamada genellikle üç temel "ilgi alaný" vardýr:
-	1)Veri Yönetimi: Verilerin nereden geleceði ve nasýl saklanacaðý (Database iþlemleri)
-	2)Ýþ Mantýðý (Business Logic): Verilerin nasýl iþleneceði, hesaplamalar ve kurallar (Service katmaný).
-	3)Sunum (Presentation): Verinin kullanýcýya nasýl gösterileceði (UI/API Controller).
-
-Refit ile http client üzerinden sürekli statik olarak yazmak yerine, her methoda bunun yerine bunlarý toplayacak methodumuz olacak.
+Mesaj basarili olup geriye data ile beraber donulmek istendiginde: mesaj modeli olan ServiceResult GENERIC OLARAK KULLANILIR.
+ServiceResult<T>: Service result icinde DATA PROPERTYSÝ olacak; bu generikteki data alani 
+"ornek olarak bir Product tablosunda silme isleminden sonra guncel tabloyu liste halinde tutmak icin kullanilabilecek".
 
 
+Mesaj 200 ile baslarsa client icindeki DATA PROPERTYSINE bakacak, 400 VEYA 500 ile baslarsa ProblemDetails icine bakacak.
+
+Kodlarimizi yazarken ServiceResulttan surekli nesne almak yerine, newlemek yerine yardimci STATIC FACTORY METHOD yazacagiz. 
+Bu methodlar geriye sadece ServiceResult donen methodlar olacak. Surekli her yerde newler dolasmayacak.
 
 
-ÖZET :
-
-Kýsa özet : 
-Baþarýsýz mesaj donulmek istendiðinde ServiceResult kullanýlr ve bu yapýda hatanýn özellýklerý verilir .
-Baþarýlý mesaj dönülmek istendiðinde ServiceResult kullanýlýr ve bunun içinde ServiceResult vardýr .ServiceResult gövdeli ve gödesiz mesaj yollayabilir
+Zaten bu newleri kontrol altina almak icin 5 tane DESIGN PATTERN VAR. Biz bunlardan:
+	1)FACTORY METHOD
+	2)ABSTRACT FACTORY ALTINA GIREN STATIC FACTORY METHOD YAKLASIMI KULLANACAGIZ.
 
 
+Servisler arasi senkron iletisim icin: REFIT KUTUPHANESI KULLANILACAK. Separation of Concerns (SoC) mantigina cok uygundur.
+
+Bir uygulamada genellikle uc temel "ilgi alani" vardir:
+	1)Veri Yonetimi: Verilerin nereden gelecegi ve nasil saklanacagi (Database islemleri)
+	2)Is Mantigi (Business Logic): Verilerin nasil islenecegi, hesaplamalar ve kurallar (Service katmani).
+	3)Sunum (Presentation): Verinin kullaniciya nasil gosterilecegi (UI/API Controller).
 
 
+Refit ile http client uzerinden surekli statik olarak yazmak yerine, her methoda bunun yerine bunlari toplayacak methodumuz olacak.
 
-
+OZET: Kisa ozet: Basarisiz mesaj donulmek istendiginde ServiceResult kullanilir ve bu yapida hatanin ozellikleri verilir. 
+Basarili mesaj donulmek istendiginde ServiceResult kullanilir ve bunun icinde ServiceResult vardir. ServiceResult govdele ve godesiz mesaj yollayabilir.

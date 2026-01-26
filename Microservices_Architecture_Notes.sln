@@ -4,10 +4,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.14.36414.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
-	ProjectSection(SolutionItems) = preProject
-		Microservices.Catalog.Api\Ders18_RFC7807_Problem_Details_Nedir.txt = Microservices.Catalog.Api\Ders18_RFC7807_Problem_Details_Nedir.txt
-		Ders19_ServiceResul_ile_Succes_Mesaj_Dönmek.txt = Ders19_ServiceResul_ile_Succes_Mesaj_Dönmek.txt
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "services", "services", "{310325FC-DC0C-458E-B5B5-7D9088614865}"
 EndProject
@@ -16,6 +12,14 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microservices.Catalog.Api", "Microservices.Catalog.Api\Microservices.Catalog.Api.csproj", "{F7CBC0E0-C031-40AA-8E6F-B8F89E7CBE74}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{81DDED9D-158B-E303-5F62-77A2896D2A5A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Notlarım", "Notlarım", "{C38BBD87-B639-404A-8B00-8474B3E75B65}"
+	ProjectSection(SolutionItems) = preProject
+		Ders18_RFC7807_Problem_Details_Nedir.txt = Ders18_RFC7807_Problem_Details_Nedir.txt
+		Ders19_ServiceResul_ile_Succes_Mesaj_Dönmek.txt = Ders19_ServiceResul_ile_Succes_Mesaj_Dönmek.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
