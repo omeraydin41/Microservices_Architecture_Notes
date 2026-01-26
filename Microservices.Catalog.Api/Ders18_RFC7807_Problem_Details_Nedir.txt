@@ -1,0 +1,51 @@
+﻿Ders 18 : ERROR/PROBLEM DETAILS 
+
+Bu derste tüm mikroservisleri ilgilendiren hata yapısını inceleyeceğiz. Endpointleri yazarken hata mesajı da dönebilir; 
+
+bu derste geriye dönecek olan hata yapısını ele alacağız.
+
+Hata yönetiminde geriye istediğiniz mesajı dönebiliriz ama bir iyi yöntem var.
+
+IETF kuruluşunun yayımladığı RFC7807 NO lu belge: Bu belge REST mimarisinde geriye nasıl hata mesajı dönülmesi gerektiğini belirler. Buna da PROBLEM DETAILS denir.
+
+PROBLEM DETAILS'ın amacı; her developer'ın geriye kafasına göre hata mesajı dönmektense, 
+
+bunu merkezileştirip bir spesifikasyon altına alınmasını ve herkesin Best Practice olarak bu yapıyı kullanmasını hedefler.
+
+Biz de microservicelerden geriye hata dönerken PROBLEM DETAILS olan spesifikasyona uygun bir response (cevap) model döneceğiz.
+
+Ama sadece hata durumlarında kullanacağız.
+
+ProblemDetails CLASSI: .NET'te PROBLEM DETAILS MANTIĞINA KARŞILIK GELEN CLASS. Kendimizin oluşturmasına gerek yok.
+
+
+----------------------------------------------------------
+
+[HttpGet("{id}")]
+public IActionResult GetProduct(int id)
+{
+    var product = _repository.GetById(id);
+
+    if (product == null)
+    {
+        return NotFound(new ProblemDetails
+        {
+            Status = StatusCodes.Status404NotFound, //hatanın statusu
+            Title = "Ürün Bulunamadı", //başlık
+            Detail = $"ID'si {id} olan ürün sistemde mevcut değil.", //detay
+            Instance = HttpContext.Request.Path
+        });
+    }
+
+    return Ok(product);
+}
+
+----------------------------------------------------------
+
+Yukarıda ProblemDetails classından nesne oluşturularak hatanın özellikleri açıklanmıştır. 
+
+Validasyon hatalarında ERRORS kısmı da vardır ama olmak zorunda değildir; özel durumlarda doldurulabilir.
+
+Bu yapı ile RESPONSE MODEL (GERİYE CEVAP MEKANİZMASI) KONUSU ARTIK DAHA KOLAY ÇÖZÜLEBİLİR.
+
+Bu yapıda DURUM KODLARI kullanılır.
