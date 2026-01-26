@@ -1,9 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36414.22 d17.14
+VisualStudioVersion = 17.14.36414.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+	ProjectSection(SolutionItems) = preProject
+		Microservices.Catalog.Api\Ders18_RFC7807_Problem_Details_Nedir.txt = Microservices.Catalog.Api\Ders18_RFC7807_Problem_Details_Nedir.txt
+		Ders19_ServiceResul_ile_Succes_Mesaj_Dönmek.txt = Ders19_ServiceResul_ile_Succes_Mesaj_Dönmek.txt
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "services", "services", "{310325FC-DC0C-458E-B5B5-7D9088614865}"
 EndProject

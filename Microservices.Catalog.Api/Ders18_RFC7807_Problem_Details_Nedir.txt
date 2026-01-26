@@ -1,4 +1,4 @@
-﻿Ders 18 : ERROR/PROBLEM DETAILS 
+﻿Ders 18 : ERROR/PROBLEM DETAILS : HATA MESAJI ALINDIĞINDA GERİYE HANGİ YAPI İLE DÖNÜLECEK ?
 
 Bu derste tüm mikroservisleri ilgilendiren hata yapısını inceleyeceğiz. Endpointleri yazarken hata mesajı da dönebilir; 
 
