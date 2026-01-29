@@ -1,7 +1,7 @@
-﻿using Microservices.Catalog.Api.Repostories;
+﻿using Microservices.Catalog.Api.Options;
 using MongoDB.Driver;
 
-namespace Microservices.Catalog.Api.Options
+namespace Microservices.Catalog.Api.Repostories
 {
     public static class RepostoryExt
     {
