@@ -19,6 +19,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Notlarım", "Notlarım", "{
 	ProjectSection(SolutionItems) = preProject
 		Ders18_RFC7807_Problem_Details_Nedir.txt = Ders18_RFC7807_Problem_Details_Nedir.txt
 		Ders19_ServiceResul_ile_Succes_Mesaj_Dönmek.txt = Ders19_ServiceResul_ile_Succes_Mesaj_Dönmek.txt
+		Ders21_MediadtR_VE_CQRS_Nedir_Kullanimi.txt = Ders21_MediadtR_VE_CQRS_Nedir_Kullanimi.txt
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "shared", "shared", "{84EE9F06-038B-4412-A8B5-7E9C61C163D3}"
