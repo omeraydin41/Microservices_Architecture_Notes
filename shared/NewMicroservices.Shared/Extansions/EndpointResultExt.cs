@@ -15,9 +15,9 @@ namespace NewMicroservices.Shared.Extansions
         {
             return result.Status switch
             {
-                HttpStatusCode.OK => Results.Ok(result),
+                HttpStatusCode.OK => Results.Ok(result.Data),
 
-                HttpStatusCode.Created=> Results.Created(result.UrlAsCreated,result),
+                HttpStatusCode.Created=> Results.Created(result.UrlAsCreated,result.Data),
 
                 HttpStatusCode.NotFound => Results.NotFound(),
 

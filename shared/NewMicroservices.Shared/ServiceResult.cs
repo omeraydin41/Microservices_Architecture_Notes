@@ -164,7 +164,7 @@ namespace NewMicroservices.Shared
         //üstteki T değişken ile yakalandı / gövdede tutulacak mesajın değişkeni olmazsa null olur ? dolayı 
         public T? Data { get; set; }//mesaj başarılı geldiğinde bu dolacak olmadığında kalıtım yolu ile üstteki Fail tutulacak 
 
-        public string? UrlAsCreated { get; set; }//201 dödüğünde doldurulacak 
+        [JsonIgnore] public string? UrlAsCreated { get; set; }//201 dödüğünde doldurulacak 
 
 
 

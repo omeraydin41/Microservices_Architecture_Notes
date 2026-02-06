@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using FluentValidation;
+using FluentValidation.AspNetCore;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +18,11 @@ namespace NewMicroservices.Shared.Extansions
             services.AddHttpContextAccessor();//yüm servislere erişmek için 
 
             services.AddMediatR(x => x.RegisterServicesFromAssemblyContaining(assembly));//verilen classı tarar ve bulur 
+
+            services.AddFluentValidationAutoValidation();//otomatık validasyonu yapacak 
+
+            services.AddValidatorsFromAssemblyContaining(assembly);//asemmbly contai olarak verdik 
+
 
             return services;//amacımız her mıcreoservicede assembly dışardan vermek 
         }
