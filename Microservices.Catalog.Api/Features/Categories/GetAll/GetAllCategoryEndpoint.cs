@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using Microservices.Catalog.Api.Features.Categories.Create;
 using Microservices.Catalog.Api.Features.Categories.Dtos;
 using Microservices.Catalog.Api.Repostories;
@@ -16,14 +17,14 @@ namespace Microservices.Catalog.Api.Features.Categories.GetAll
 
     //primary constuctounda AppDbContext alırız çünkü veritabanına erişmemiz gerekecek ve bu işlemi yaparken
     //MediatR'ın sağladığı IRequestHandler arayüzünü kullanarak sorguyu işlemek için bir sınıf oluştururuz.
-    public class GetAllCategoryQueryHandler(AppDbContext context) : IRequestHandler<GetAllCategoryQuery, ServiceResult<List<CategoryDto>>>
+    public class GetAllCategoryQueryHandler(AppDbContext context,IMapper mapper) : IRequestHandler<GetAllCategoryQuery, ServiceResult<List<CategoryDto>>>
     {//IRequestHandler: MediatR kütüphanesinin bir parçasıdır ve belirli bir sorgu (query) veya komut (command) türünü işlemek için kullanılır.
         public async Task<ServiceResult<List<CategoryDto>>> Handle(GetAllCategoryQuery request, CancellationToken cancellationToken)
         {
             
-            var categories= await context.Categories.ToListAsync();
+            var categories= await context.Categories.ToListAsync(cancellationToken : cancellationToken);
 
-            var categoriesAsDto=categories.Select(c=> new CategoryDto(c.Id,c.Name)).ToList();
+            var categoriesAsDto=mapper.Map<List<CategoryDto>>(categories);
 
             return ServiceResult<List<CategoryDto>>.SuccessAsOk(categoriesAsDto);
 

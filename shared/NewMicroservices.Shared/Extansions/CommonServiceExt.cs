@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace NewMicroservices.Shared.Extansions
 {
-    public static class CommonServiceExt
+    public static class CommonServiceExt//TÜM YARDIMCI VE GLOBAL SERVİSLER BURAYA EKLENİR BURDAN PROGRAM.CS İÇİNE YAZILIR 
     {
         //IServiceCollection geriyedönüş tipimiz
         public static IServiceCollection AddCommonServiceExt(this IServiceCollection services,Type assembly)
@@ -22,6 +22,8 @@ namespace NewMicroservices.Shared.Extansions
             services.AddFluentValidationAutoValidation();//otomatık validasyonu yapacak 
 
             services.AddValidatorsFromAssemblyContaining(assembly);//asemmbly contai olarak verdik 
+
+            services.AddAutoMapper(assembly);//verilen assemblyi tarar ve bulur
 
 
             return services;//amacımız her mıcreoservicede assembly dışardan vermek 
