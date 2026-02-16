@@ -1,10 +1,5 @@
-﻿using AutoMapper;
-using MediatR;
-using Microservices.Catalog.Api.Features.Categories.Dtos;
+﻿
 using Microservices.Catalog.Api.Repostories;
-using NewMicroservices.Shared;
-using NewMicroservices.Shared.Extansions;
-using System.Net;
 
 namespace Microservices.Catalog.Api.Features.Categories.GetById
 {

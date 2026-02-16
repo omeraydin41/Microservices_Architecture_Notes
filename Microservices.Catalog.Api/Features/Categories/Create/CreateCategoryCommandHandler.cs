@@ -1,10 +1,5 @@
-﻿using MassTransit;
-using MediatR;
-using Microservices.Catalog.Api.Repostories;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.EntityFrameworkCore;
-using NewMicroservices.Shared;
-using System.Net;
+﻿
+
 
 namespace Microservices.Catalog.Api.Features.Categories.Create
 {

@@ -1,12 +1,7 @@
-﻿using AutoMapper;
-using MediatR;
-using Microservices.Catalog.Api.Features.Categories.Create;
+﻿
 using Microservices.Catalog.Api.Features.Categories.Dtos;
 using Microservices.Catalog.Api.Repostories;
-using Microsoft.EntityFrameworkCore;
-using NewMicroservices.Shared;
-using NewMicroservices.Shared.Extansions;
-using NewMicroservices.Shared.Filters;
+
 
 namespace Microservices.Catalog.Api.Features.Categories.GetAll
 {
