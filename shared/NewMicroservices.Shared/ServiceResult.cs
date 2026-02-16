@@ -9,10 +9,24 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using MediatR;
 
 
 namespace NewMicroservices.Shared
 {
+    public interface IRequestByServiceResult<T> :IRequest<ServiceResult<T>>;
+    //mediatrın IRequest interface ini kullanarak ServiceResult<T> döndüren bir interface oluşturduk 
+
+    //dinamik olmayanı 
+    public interface IRequestByServiceResult : IRequest<ServiceResult>;
+
+
+
+
+
+
+
+
     //ServiceResult başarılı dönulduğunde sadece Status DOLDURULMALI Fail doldurulmaz .IsSucces ile kontrol edilir
 
     public class ServiceResult//public olursa diğer ASSAMBLYLERDEN erişilebilir

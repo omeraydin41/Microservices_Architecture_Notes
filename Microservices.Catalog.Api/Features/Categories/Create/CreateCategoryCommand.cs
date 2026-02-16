@@ -2,7 +2,7 @@
 
 namespace Microservices.Catalog.Api.Features.Categories.Create
 {
-    public record CreateCategoryCommand(string Name) : MediatR.IRequest<ServiceResult<CreateCategoryResponse>>;//primary constructor olarak inşa edildi
+    public record CreateCategoryCommand(string Name) :IRequestByServiceResult<CreateCategoryResponse>;//primary constructor olarak inşa edildi
                                                                                                                //string Name : set kısmı init olan ve constuructor ile istenen alan oldu
 
 

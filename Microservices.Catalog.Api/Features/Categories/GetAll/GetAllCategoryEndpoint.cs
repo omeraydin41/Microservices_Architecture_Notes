@@ -10,7 +10,7 @@ using NewMicroservices.Shared.Filters;
 
 namespace Microservices.Catalog.Api.Features.Categories.GetAll
 {
-    public class GetAllCategoryQuery:IRequest<ServiceResult<List<CategoryDto>>>;
+    public class GetAllCategoryQuery:IRequestByServiceResult<List<CategoryDto>>;
     //IRequest: MediatR kütüphanesinin bir parçasıdır ve bir sorgu (query) veya komut (command) nesnesi oluşturmak için kullanılır.
     //ServiceResult üzerinden list şeklinde CategoryDto döneceğiz
 

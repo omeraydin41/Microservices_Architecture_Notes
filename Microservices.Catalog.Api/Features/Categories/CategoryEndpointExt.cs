@@ -1,5 +1,6 @@
 ﻿using Microservices.Catalog.Api.Features.Categories.Create;
 using Microservices.Catalog.Api.Features.Categories.GetAll;
+using Microservices.Catalog.Api.Features.Categories.GetById;
 
 namespace Microservices.Catalog.Api.Features.Categories
 {
@@ -11,8 +12,12 @@ namespace Microservices.Catalog.Api.Features.Categories
             app.MapGroup("api/categories").CreateCategoryGroupItemEndpoint().
             // grup adı : "api/categories"  CreateCategoryGroupItemEndpoint methodu  CreateCategoryEndpoint clasından gelir
 
-                GetAllCategoryGroupItemEndpoint();
+                GetAllCategoryGroupItemEndpoint().
             // grup adı : "api/categories"  GetAllCategoryGroupItemEndpoint methodu  GetAllCategoryEndpoint clasından gelir
+
+
+            GetByIdCategoryGroupItemEndpoint();
+            // grup adı : "api/categories"  GetByIdCategoryGroupItemEndpoint methodu  GetByIdCategoryEndpoint clasından gelir ıd ye gore kategori getirmek için
         }
     }
 }
