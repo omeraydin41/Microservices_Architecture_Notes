@@ -1,4 +1,6 @@
-﻿using Microservices.Catalog.Api.Features.Courses.Create;
+﻿using Microservices.Catalog.Api.Features.Categories;
+using Microservices.Catalog.Api.Features.Courses.Create;
+using Microservices.Catalog.Api.Features.Courses.Dtos;
 
 namespace Microservices.Catalog.Api.Features.Courses
 {
@@ -12,6 +14,9 @@ namespace Microservices.Catalog.Api.Features.Courses
 
             //iki classtakı alan adları uyuşmak zorunda değil ama ben aynı isimde yaparsam otomatik mapler .
             //Farklı isimde yaparsam manuel mapleme yapmam gerekir .
+
+            CreateMap<Course,CourseDto>().ReverseMap();
+            CreateMap<Feature,FeatureDto>().ReverseMap();//reverse map bu işlmeın tersıde olabılır            
         }
     }
 }

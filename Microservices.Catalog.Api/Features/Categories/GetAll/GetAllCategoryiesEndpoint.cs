@@ -31,7 +31,7 @@ namespace Microservices.Catalog.Api.Features.Categories.GetAll
 
 
     //tüm kategorileri listelem işlemi yapar 
-    public static class GetAllCategoryEndpoint
+    public static class GetAllCategoryiesEndpoint
     {
 
         public static RouteGroupBuilder GetAllCategoryGroupItemEndpoint(this RouteGroupBuilder group)

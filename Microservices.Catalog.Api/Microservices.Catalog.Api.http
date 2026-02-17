@@ -24,3 +24,5 @@ Content-Type: application/json
   "categoryId": "{{categoryId}}"
 }
 ###
+GET {{baseAddres}}/api/courses
+Accept: application/json
