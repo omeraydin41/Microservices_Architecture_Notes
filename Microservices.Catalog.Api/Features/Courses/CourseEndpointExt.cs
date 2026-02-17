@@ -1,6 +1,7 @@
 ﻿using Microservices.Catalog.Api.Features.Categories.Create;
 using Microservices.Catalog.Api.Features.Courses.Create;
 using Microservices.Catalog.Api.Features.Courses.GetAll;
+using Microservices.Catalog.Api.Features.Courses.GetById;
 
 namespace Microservices.Catalog.Api.Features.Courses
 {
@@ -11,7 +12,10 @@ namespace Microservices.Catalog.Api.Features.Courses
             app.MapGroup("api/courses").WithTags("Courses").CreateCourseGroupItemEndpoint().
             //whithtags ile swagger da hangi başlık altında gözükeceğini belirtiyoruz
 
+                GetByIdCourseItemGroupEndPoint().
+
                 GetAllCourseGroupItemEndpoint();
+
             //app.MapGroup("api/courses") ile "api/courses" alanına gelen istekleri bu grup altında toplayacağız
             //ve bu grup altında CreateCourseGroupItemEndpoint ve GetAllCourseGroupItemEndpoint endpointlerini ekleyeceğiz.
         }
