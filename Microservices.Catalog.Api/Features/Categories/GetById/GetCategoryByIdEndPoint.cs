@@ -35,7 +35,7 @@ namespace Microservices.Catalog.Api.Features.Categories.GetById
         {
             group.MapGet("/{id:guid}"//kısıtlama belirterek id nin guid formatında olması gerektiğini söyledik
                 , async (IMediator mediator, Guid id) =>
-                (await mediator.Send(new GetCategoryByIdQuery(id))).ToGenericResult());
+                (await mediator.Send(new GetCategoryByIdQuery(id))).ToGenericResult()).WithName("GetByIdCategoryGroup");
 
             return group;
 

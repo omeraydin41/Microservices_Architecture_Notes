@@ -38,7 +38,7 @@ namespace Microservices.Catalog.Api.Features.Categories.GetAll
         {
 
             group.MapGet("/", async (IMediator mediator) =>
-            (await mediator.Send(new GetAllCategoryQuery())).ToGenericResult());//ToResult methodumuzn adı donuş olarak belirlemdi
+            (await mediator.Send(new GetAllCategoryQuery())).ToGenericResult()).WithName("GetAllCategory");//ToResult methodumuzn adı donuş olarak belirlemdi
             // "/" anlamı gurupları kontrol eden CategoryEndpointExt classındaki "api/categories" alanına denk 
 
             //end pointe fiter ekleyerek  hangi classın valıdasyona uğryacağı ve validasyon yapan classıda veriyoruz

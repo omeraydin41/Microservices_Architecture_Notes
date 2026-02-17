@@ -1,0 +1,6 @@
+﻿namespace Microservices.Catalog.Api.Features.Courses.Dtos
+{
+    public class CourseDto
+    {
+    }
+}

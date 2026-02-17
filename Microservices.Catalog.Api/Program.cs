@@ -1,13 +1,7 @@
-using MediatR;
 using Microservices.Catalog.Api;
 using Microservices.Catalog.Api.Features.Categories;
-using Microservices.Catalog.Api.Features.Categories.Create;
+using Microservices.Catalog.Api.Features.Courses;
 using Microservices.Catalog.Api.Options;
-using Microservices.Catalog.Api.Repostories;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
-using MongoDB.Driver;
-using NewMicroservices.Shared.Extansions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,8 +26,11 @@ var app = builder.Build();
 
 app.AddCategoryGroupEndpointExt();
 //AddCategoryGroupEndpointExt methodu CategoryEndpointExt clasýndan gelen guruplama methodudur ve bu method CreateCategoryEndpoint
-//CreateCategoryEndpoint clasýndaký MÝNÝMAL APÝLERÝ guruplandýrarak tek merkezden yöenilmesini saðlar 
-
+//CreateCategoryEndpoint clasýndaký MÝNÝMAL APÝLERÝ guruplandýrarak tek merkezden yöenilmesini saðlar
+ 
+app.AddCourseGroupEndpointExt();
+//AddCourseGroupEndpointExt methodu CourseEndpointExt clasýndan gelen guruplama methodudur ve bu method CreateCourseCommandEndPoint
+//CreateCourseCommandEndPoint clasýndaký MÝNÝMAL APÝLERÝ guruplandýrarak tek merkezden yöenilmesini saðlar
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

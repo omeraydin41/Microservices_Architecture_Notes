@@ -9,10 +9,10 @@ namespace Microservices.Catalog.Api.Features.Courses
         public string Description { get; set; } = default!;//açıklaması 
         public decimal Price { get; set; }//fiyatı 
         public Guid UserId { get; set; }//Kursu satın alanlar için oluşan alan
-        public string? Picture { get; set; }//kursun resmi ? null olabılır 
+        public string? ImageUrl { get; set; }//kursun resmi ? null olabılır 
         //strıng zaten null burdakı amacı artık nullable ozellığı açık gelir . Compiler null olabılecek yerlerde uyarı verir.null olabılır
         //diyerek compiler a uyarı verme deriz . ekip içi çalışmada yardımcı olur. hangı değişkenlerin doldurulması konusunda.
-
+        
 
 
         public DateTime Created { get; set; }//kursun oluşturulma tarihi
