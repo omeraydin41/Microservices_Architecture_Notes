@@ -1,5 +1,6 @@
 ﻿using Microservices.Catalog.Api.Features.Categories.Create;
 using Microservices.Catalog.Api.Features.Courses.Create;
+using Microservices.Catalog.Api.Features.Courses.Delete;
 using Microservices.Catalog.Api.Features.Courses.GetAll;
 using Microservices.Catalog.Api.Features.Courses.GetById;
 using Microservices.Catalog.Api.Features.Courses.Update;
@@ -18,6 +19,8 @@ namespace Microservices.Catalog.Api.Features.Courses
                 GetByIdCourseItemGroupEndPoint().
 
                 GetAllCourseGroupItemEndpoint().
+
+                DeleteCourseGroupItemEndpoint().
 
                 UpdateCourseGroupItemEndpoint();
 

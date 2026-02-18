@@ -43,3 +43,6 @@ Accept: application/json
 GET {{baseAddres}}/api/courses/{{courseId}}
 Accept: application/json
 ###
+DELETE {{baseAddres}}/api/courses/{{courseId}}
+Accept: application/json
+###
