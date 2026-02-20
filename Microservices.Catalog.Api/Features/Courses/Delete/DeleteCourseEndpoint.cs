@@ -3,7 +3,8 @@ using Microservices.Catalog.Api.Features.Categories.GetById;
 
 namespace Microservices.Catalog.Api.Features.Courses.Delete
 {
-    public record DeleteCourseCommand(Guid Id): IRequestByServiceResult;//genereic olmayanını döndük sebebi 204 nocontent döndüreceğiz yani herhangi bir data dönmeyeceğiz sadece başarılı veya başarısız olduğunu göstermek istiyoruz.
+    public record DeleteCourseCommand(Guid Id): IRequestByServiceResult;//genereic olmayanını döndük sebebi 204 nocontent döndüreceğiz
+                                                                        //yani herhangi bir data dönmeyeceğiz sadece başarılı veya başarısız olduğunu göstermek istiyoruz.
 
     public class DeleteCourseCommandHandler(AppDbContext context ,IMapper mapper) : IRequestHandler<DeleteCourseCommand, ServiceResult>
     {

@@ -2,6 +2,7 @@ using Microservices.Catalog.Api;
 using Microservices.Catalog.Api.Features.Categories;
 using Microservices.Catalog.Api.Features.Courses;
 using Microservices.Catalog.Api.Options;
+using Microservices.Catalog.Api.Repostories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +24,20 @@ builder.Services.AddCommonServiceExt(typeof(CatalogAssembly));
 
 
 var app = builder.Build();
+
+
+app.AddSeedDataExt().ContinueWith(x =>
+{
+    if (x.IsFaulted)
+    {
+        Console.WriteLine(x.Exception?.Message);
+    }
+    else
+    {
+        Console.WriteLine("Seed data added successfully.");
+    }
+
+});
 
 app.AddCategoryGroupEndpointExt();
 //AddCategoryGroupEndpointExt methodu CategoryEndpointExt clasýndan gelen guruplama methodudur ve bu method CreateCategoryEndpoint
