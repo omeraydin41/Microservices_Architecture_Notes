@@ -38,8 +38,11 @@ namespace Microservices.Catalog.Api.Features.Categories.GetAll
         {
 
             group.MapGet("/", async (IMediator mediator) =>
-            (await mediator.Send(new GetAllCategoryQuery())).ToGenericResult()).WithName("GetAllCategory");//ToResult methodumuzn adı donuş olarak belirlemdi
+            (await mediator.Send(new GetAllCategoryQuery())).ToGenericResult()).WithName("GetAllCategory").//ToResult methodumuzn adı donuş olarak belirlemdi
             // "/" anlamı gurupları kontrol eden CategoryEndpointExt classındaki "api/categories" alanına denk 
+
+            //hangi versiyonun kullanılacağını belermek için 1.0 mı 2.0 mı
+            MapToApiVersion(1, 0);//major ve minor versiyonları verilir
 
             //end pointe fiter ekleyerek  hangi classın valıdasyona uğryacağı ve validasyon yapan classıda veriyoruz
             //validasyon yapan class generic olduğundan(ValidationFilter) her endpoinet teker teker yzılmalı ama dinamik olmasaydı direkt 

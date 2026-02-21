@@ -22,6 +22,8 @@ builder.Services.AppDatabaseServiceExt();
 // shared > extansýons > CommonServiceExt clasýndan gelen AddCommonServiceExt methodu na assembly clasýmýz olan catalog api altýnaký CatalogAssembly classý veridi
 builder.Services.AddCommonServiceExt(typeof(CatalogAssembly));
 
+builder.Services.AddVersioningExt();
+
 
 var app = builder.Build();
 
@@ -39,11 +41,11 @@ app.AddSeedDataExt().ContinueWith(x =>
 
 });
 
-app.AddCategoryGroupEndpointExt();
+app.AddCategoryGroupEndpointExt(app.AddVersionSetExt());
 //AddCategoryGroupEndpointExt methodu CategoryEndpointExt clasýndan gelen guruplama methodudur ve bu method CreateCategoryEndpoint
 //CreateCategoryEndpoint clasýndaký MÝNÝMAL APÝLERÝ guruplandýrarak tek merkezden yöenilmesini saðlar
  
-app.AddCourseGroupEndpointExt();
+app.AddCourseGroupEndpointExt(app.AddVersionSetExt());
 //AddCourseGroupEndpointExt methodu CourseEndpointExt clasýndan gelen guruplama methodudur ve bu method CreateCourseCommandEndPoint
 //CreateCourseCommandEndPoint clasýndaký MÝNÝMAL APÝLERÝ guruplandýrarak tek merkezden yöenilmesini saðlar
 

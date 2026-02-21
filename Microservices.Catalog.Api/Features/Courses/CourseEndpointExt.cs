@@ -1,4 +1,5 @@
-﻿using Microservices.Catalog.Api.Features.Categories.Create;
+﻿using Asp.Versioning.Builder;
+using Microservices.Catalog.Api.Features.Categories.Create;
 using Microservices.Catalog.Api.Features.Courses.Create;
 using Microservices.Catalog.Api.Features.Courses.Delete;
 using Microservices.Catalog.Api.Features.Courses.GetAll;
@@ -10,10 +11,12 @@ namespace Microservices.Catalog.Api.Features.Courses
 {
     public static class CourseEndpointExt
     {
-        public static void AddCourseGroupEndpointExt(this WebApplication app)//her endpoint buraya eklenmeli 
+        public static void AddCourseGroupEndpointExt(this WebApplication app, ApiVersionSet apiVersionSet)//her endpoint buraya eklenmeli 
         {
-            app.MapGroup("api/courses").WithTags("Courses").
+            app.MapGroup("api/v{version:apiVersion}/courses").WithTags("Courses").
             //whithtags ile swagger da hangi başlık altında gözükeceğini belirtiyoruz
+
+                WithApiVersionSet(apiVersionSet).
 
                 CreateCourseGroupItemEndpoint().
 

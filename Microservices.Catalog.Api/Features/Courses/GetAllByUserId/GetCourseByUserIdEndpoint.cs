@@ -36,8 +36,8 @@ namespace Microservices.Catalog.Api.Features.Courses.GetAllByUserId
         {
             group.MapGet
             (   "/user/{userId:guid}",
-                async (IMediator mediator, Guid Id) =>
-                (await mediator.Send(new GetCourseByUserIdQuery(Id))).ToGenericResult()
+                async (IMediator mediator, Guid userId) =>
+                (await mediator.Send(new GetCourseByUserIdQuery(userId))).ToGenericResult()
             ).
                 WithName("GetByUserIdCourses");
             return group;
