@@ -1,0 +1,49 @@
+Ders 19: tum MICROSERVICELERDEN NASIL BIR BASARILI DONUS TIPI BELIRLEYECEGIZ
+Tum servicelerde hata mesaji alindiginda PROBLEM DETAILS yapisi kullanilacak. 
+Basarili mesaj dondugunde kullanilmasi icin ortak bir model kullanacagiz (bunlarin hepsi SHARED LIBRARYLERDE TANIMLANACAK).
+
+Basarili mesaj dondugunde iki ihtimal var:
+	1)Mesela bir operasyon yapildiginda (delete, update vb.) geriye responsum (cevabin) bodysinde bir sey donmeye gerek yok, 204 donulse yeter. 
+	(id'si 5 olan data guncellendi gibi bir mesaj donmeye gerek yok, govdede sadece islem basarili).
+
+	2)Geriye body icine data donulmesi gereken durumlar: mesela product datasinda basarili bir silme islemi yapildi, SONRA TUM PRODUCT DATASINI GERIYE LISTE OLARAK DONULMESI ISTENEBILIR.
+
+Iste istenilen bu islemi bir sinifla WRAPLAYALIM (SIRALAYALIM).
+
+SERVICE RESULT: Oyle bir class olsun ki hata oldugunda hata mesaji donmek icin bir onceki derste olan PROBLEM DETAILS icin SERVICE RESULT classi icinden 
+"ProblemDetails" adinda PROPERTY DOLDURULABILSIN.
+Eger basarili ise bir sey doldurmaya gerek kalmaz, 204 doner.
+
+Kisaca UPDATE, DELETE GIBI ISLEMLERDE "SERVICE RESULT" CLASSI DONULEBILIR. 
+.net bunu JSON'a serialize edecek. Zaten icinde 400 veya 500 yoksa basarilidir; varsa eger client direkt PROBLEM DETAILS PROPERTYSINE bakar. 
+Zaten mesajda hata varsa araya da girilip onceki derste islenen PROBLEM DETAILS mesaji donecek.
+
+
+Mesaj basarili olup geriye data ile beraber donulmek istendiginde: mesaj modeli olan ServiceResult GENERIC OLARAK KULLANILIR.
+ServiceResult<T>: Service result icinde DATA PROPERTYSÝ olacak; bu generikteki data alani 
+"ornek olarak bir Product tablosunda silme isleminden sonra guncel tabloyu liste halinde tutmak icin kullanilabilecek".
+
+
+Mesaj 200 ile baslarsa client icindeki DATA PROPERTYSINE bakacak, 400 VEYA 500 ile baslarsa ProblemDetails icine bakacak.
+
+Kodlarimizi yazarken ServiceResulttan surekli nesne almak yerine, newlemek yerine yardimci STATIC FACTORY METHOD yazacagiz. 
+Bu methodlar geriye sadece ServiceResult donen methodlar olacak. Surekli her yerde newler dolasmayacak.
+
+
+Zaten bu newleri kontrol altina almak icin 5 tane DESIGN PATTERN VAR. Biz bunlardan:
+	1)FACTORY METHOD
+	2)ABSTRACT FACTORY ALTINA GIREN STATIC FACTORY METHOD YAKLASIMI KULLANACAGIZ.
+
+
+Servisler arasi senkron iletisim icin: REFIT KUTUPHANESI KULLANILACAK. Separation of Concerns (SoC) mantigina cok uygundur.
+
+Bir uygulamada genellikle uc temel "ilgi alani" vardir:
+	1)Veri Yonetimi: Verilerin nereden gelecegi ve nasil saklanacagi (Database islemleri)
+	2)Is Mantigi (Business Logic): Verilerin nasil islenecegi, hesaplamalar ve kurallar (Service katmani).
+	3)Sunum (Presentation): Verinin kullaniciya nasil gosterilecegi (UI/API Controller).
+
+
+Refit ile http client uzerinden surekli statik olarak yazmak yerine, her methoda bunun yerine bunlari toplayacak methodumuz olacak.
+
+OZET: Kisa ozet: Basarisiz mesaj donulmek istendiginde ServiceResult kullanilir ve bu yapida hatanin ozellikleri verilir. 
+Basarili mesaj donulmek istendiginde ServiceResult kullanilir ve bunun icinde ServiceResult vardir. ServiceResult govdele ve godesiz mesaj yollayabilir.

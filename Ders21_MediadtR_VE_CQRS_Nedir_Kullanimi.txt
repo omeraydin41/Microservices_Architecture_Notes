@@ -1,0 +1,65 @@
+2. MediatR Nedir?
+MediatR, .NET dunyasinda Mediator (Arabulucu) tasarim desenini uygulayan populer bir kutuphanedir.
+Mantik: Nesnelerin birbirleriyle dogrudan iletisim kurmasi yerine (siki baglilik - tight coupling), 
+tum iletisimin tek bir "merkez" uzerinden yurumesini saglar.
+Telsiz Operatoru Benzetmesi: Bir havalimanindaki ucaklar birbirleriyle dogrudan konusmazlar. Hepsi kuleyle (MediatR) konusur. 
+Kule, hangi mesajin hangi ucaga gitmesi gerektigini bilir.
+
+
+
+
+MEDIATR NOTLARÝ :
+
+mediatR desnig paternýn implementasyounu sagliyor.
+Vertical slize artch, DDD artch, clean artch gibi yaklasimlarda gercekten kolaylik saglar ve test yazmayi kolaylastirir.
+
+mediatR okuma ve yazmalari (CQRS GIBI) da birbirinden ayirmada Kullanilabilir.
+AMA BIZ SADECE MEDIATR OZELLIGINDEN FAYDALANACAGIZ HABERLESMENIN TEK YERDEN KONTROL EDILMESI.
+
+
+mediatR birbirnden coupled olan bilesenderi decoupled yapmaya yarayan DESSING PATTERNDIR.
+
+	1)Coupled (Siki Baglilik): Iki sinifin veya bilesenin birbirine gobekten bagli olmasidir. 
+	Birini degistirdiginizde digeri de bozuluyorsa, bunlar "coupled" durumdadýr. 
+	Bu, buyuk projelerde (bankacilik uygulamalari gibi) istemedigimiz bir durumdur cunku hata yapma riskini artirir.
+
+	2)Decoupled (Bagimsizlik/Gevsek Baglilik): Bilesenlerin birbirinden habersiz ama uyum icinde calismasidir. 
+	Bir parcayi cikarip yerine yenisini taktiginizda sistemin geri kalani etkilenmez.
+
+
+YAZILIMDA CLASSLAR NE KADAR BIRBIRLERINI NEWLERLERSE O KADAR KAOS OLUR. BUNU ONUNE GECMEK ICIN KULLANILAN LIBRARYDIR.
+Bizim projemizde CONTROLLER - BUSSINES LOGIC arasina Coupled azaltmak icin mediatR objesi gelecek ve yonetimi saglayacak.
+Tum servislerde olacak SHARED CLASS LIBRARYSINE BUTGET OLARAK EKLENDI.
+MEDIATR GENELLIKLE CQRS LE BETABER KULLANILIR AMA BIZ KULLANMAYACAGIZ.
+
+
+
+1. CQRS Nedir? (Command Query Responsibility Segregation)
+CQRS, bir uygulamada okuma (veriyi getirme) ve yazma (veriyi degistirme) islemlerini birbirinden tamamen ayirmaktir.
+
+	1)Command (Komut): Veriyi degistiren islemlerdir. (Ekleme, Guncelleme, Silme). Geriye genellikle bir veri dondurmezler (veya sadece islem sonucunu/ID donerler).
+
+	2)Query (Sorgu): Veriyi okuyan islemlerdir. (Listeleme, Detay getirme). Veri tabaninda hicbir seyi degistirmezler.
+
+Neden kullanilir? Bir bankacilik uygulamasinda para transferi yapmak (Command) cok karmasik is kurallari gerektirirken, 
+sadece hesap bakiyesini goruntulemek (Query) cok basittir. Ikisini ayni sinifta tutmak yerine ayirirsaniz, 
+performans optimizasyonunu her biri icin ayri yapabilirsiniz.
+
+
+3. MediatR ve CQRS Birlikte Nasýl Çalýþýr?
+CQRS bir mimari desen, MediatR ise bu deseni kodda uygulamayi kolaylastiran bir aractir. C# projesinde akis soyle olur:
+
+	1)Request (Istek): Bir Command veya Query nesnesi olusturulur.
+
+	2)IMediator.Send(): Bu nesne MediatR'a verilir.
+
+	3)Handler (Isleyici): MediatR, projenin icinde o istegi kimin yerine getirecegini (Handler) otomatik bulur ve ona iletir.
+
+	4)Sonuc: Handler isi yapar ve sonucu doner.
+
+
+Avantajlari Nelerdir?
+Controller'lar Kuculur: API Controller'lariniz sadece _mediator.Send(command) der ve gecer. Is mantigi Controller icinde bogulmaz.
+Gevsek Baglilik (Loose Coupling): Bir sinifin calismasi icin diger 10 tane servisi "constructor"da almasina gerek kalmaz.
+Sadece IMediator yeterlidir.
+Single Responsibility: Her islemin (ornegin CreateUserHandler) tek bir gorevi olur.

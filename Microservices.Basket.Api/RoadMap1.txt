@@ -1,0 +1,79 @@
+﻿
+
+Basket Microservice Technical Documentation
+
+Vertical Slice Architecture will be used.
+DB: Redis will be used. Redis, a NoSQL DB that stores data in memory rather than on a physical disk, will be preferred.
+Redis's library will be used.
+
+The Basket service is highly dynamic; after items are added to the cart, the cart is cleared when an order is placed.
+
+Endpoint list
+    • GetBasket: Endpoint that retrieves the entire basket. 
+    • AddBasketItem: Endpoint that adds an item to the basket. 
+    • RemoveBasketItem: Endpoint that removes an item from the basket. 
+    • ApplyDiscountCoupon: Endpoint that applies a coupon to the basket. 
+    • RemoveDiscountCoupon: Endpoint that removes a discount coupon from the basket.
+
+The discount rate for the coupon will be retrieved from the Discount microservice, and then the discount will be applied. 
+
+
+Project Structure: A new ASP.NET Core Web API project has been added. Project Name: Microservices.Basket.Api 
+
+Added Package: Microsoft.Extensions.Caching.StackExchangeRedis
+Reason: It was chosen to work more easily with a third-party database. Only Redis's path (connection string) will be provided. It provides a more abstracted structure by using DI (Dependency Injection) via the interface. 
+
+Comparison: The standard StackExchange.Redis package supports 5 different data types in Redis and is a more low-level library. References: The Shared project, which is a Common Class Library, has been added as a reference to the project.
+
+
+
+Third-Party Database refers to a database provided and managed by someone or a company other than the application's own developer.
+	• First party -> your own database
+    • Second party -> your business partner's database
+    • Third party -> a third-party company's database
+
+It is typically used in the following situations:
+    • When using external services
+    • When pulling data via API
+    • When connecting to SaaS products
+    • In ready-made identity verification systems
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+Basket Microservice Teknik Dokumani 
+
+Vertical Slice Architecture kullanilacak. 
+DB: Redis kullanilacak. NoSQL DB olan ve verileri gercek diskte tutmak yerine memory'de tutan Redis tercih edilecektir. 
+Redisin library'si kullanilacak. 
+
+Basket servisi cok dinamiktir; sepete bir seyler eklendikten sonra siparis verildiginde sepet silinir.
+
+Endpoint listesi
+	• GetBasket: Tum sepeti getiren endpoint. 
+	• AddBasketItem: Sepete kurs ekleyen endpoint. 
+	• RemoveBasketItem: Sepetten kurs silen endpoint. 
+	• ApplyDiscountCoupon: Sepette kupon tanimlayan endpoint. 
+	• RemoveDiscountCoupon: Sepetteki indirim kuponunu silen endpoint. 
+
+Kupon icin Discount microservice'inden kuponun orani alinacak ve ardindan indirim uygulanacak. 
+
+
+Proje Yapilandirmasi : Yeni bir ASP.NET Core Web API projesi eklendi.Proje Ismi: Microservices.Basket.Api 
+
+Eklenen Paket: Microsoft.Extensions.Caching.StackExchangeRedis
+Nedeni: Ucuncu taraf (Third Party) veritabani ile daha kolay calisabilmek icin tercih edildi. Sadece Redis'in yolu (connection string) verilecek. Interface uzerinden DI (Dependency Injection) ile kullanilarak daha soyutlanmis bir yapi sunar. 
+
+Karsilastirma: Normal StackExchange.Redis paketi, Redis'teki 5 farkli veri tipini barindirir ve daha low-level bir kutuphanedir. Referanslar: Ortak Class Library olan Shared projesi, referans olarak projeye eklendi.
+
+
+
+Third Party (Ucuncu Taraf) Veritabani, uygulamanin kendi gelistiricisi tarafindan degil, baska bir kisi veya sirket tarafindan saglanan ve yonetilen veritabani demektir.
+	• First party -> kendi veritabanin
+	• Second party -> Is ortaginin veritabani
+	• Third party -> Dis bir firmanin veritabani
+Genellikle su durumlarda kullanilir:
+	• Harici servis kullanirken
+	• API uzerinden veri cekilirken
+	• SaaS urunlerine baglanirken
+	• Hazir kimlik dogrulama sistemlerinde

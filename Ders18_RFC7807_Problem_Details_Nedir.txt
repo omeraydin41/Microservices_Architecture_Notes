@@ -1,0 +1,45 @@
+Ders 18: ERROR/PROBLEM DETAILS : HATA MESAJI ALINDIGINDA GERIYE HANGI YAPI ILE DONULECEK?
+Bu derste tum mikroservisleri ilgilendiren hata yapisini inceleyecegiz. Endpointleri yazarken hata mesaji da donebilir;
+
+bu derste geriye donecek olan hata yapisini ele alacagiz.
+
+Hata yonetiminde geriye istediginiz mesaji donebiliriz ama bir iyi yontem var.
+
+IETF kurulusunun yayimladigi RFC7807 NO lu belge: Bu belge REST mimarisinde geriye nasil hata mesaji donulmesi gerektigini belirler. Buna da PROBLEM DETAILS denir.
+
+PROBLEM DETAILS'in amaci; her developer'in geriye kafasina gore hata mesaji donmektense,
+
+bunu merkezilestirip bir spesifikasyon altina alinmasini ve herkesin Best Practice olarak bu yapiyi kullanmasini hedefler.
+
+Biz de mikroservislerden geriye hata donerken PROBLEM DETAILS olan spesifikasyona uygun bir response (cevap) model donecegiz.
+
+Ama sadece hata durumlarinda kullanacagiz.
+
+ProblemDetails CLASSI: .NET'te PROBLEM DETAILS MANTIGINA KARSILIK GELEN CLASS. Kendimizin olusturmasina gerek yok.
+
+[HttpGet("{id}")] public IActionResult GetProduct(int id) { var product = _repository.GetById(id);
+
+---------------------------------------------------
+if (product == null)
+{
+    return NotFound(new ProblemDetails
+    {
+        Status = StatusCodes.Status404NotFound, //hatanin statusu
+        Title = "Urun Bulunamadi", //baslik
+        Detail = $"ID'si {id} olan urun sistemde mevcut degil.", //detay
+        Instance = HttpContext.Request.Path
+    });
+}
+
+return Ok(product);
+}
+
+---------------------------------------------------
+
+Yukarida ProblemDetails classindan nesne olusturularak hatanin ozellikleri aciklanmistir.
+
+Validasyon hatalarinda ERRORS kismi da vardir ama olmak zorunda degildir; ozel durumlarda doldurulabilir.
+
+Bu yapi ile RESPONSE MODEL (GERIYE CEVAP MEKANIZMASI) KONUSU ARTIK DAHA KOLAY COZULEBILIR.
+
+Bu yapida DURUM KODLARI kullanilir.
