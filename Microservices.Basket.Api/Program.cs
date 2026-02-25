@@ -13,6 +13,13 @@ public class Program
 
         builder.Services.AddCommonServiceExt(typeof(BasketAssembly));//mapper validaston ve mediatR hepsi hazýr geldi.
 
+        builder.Services.AddStackExchangeRedisCache(options =>
+        {
+            options.Configuration = builder.Configuration.GetConnectionString("Redis");
+        });//bundan sonra IDistributedCache üzerinden redis cache'e eriþebiliriz.
+
+
+
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
@@ -20,8 +27,6 @@ public class Program
         {
             app.MapOpenApi();
         }
-
-        app.UseHttpsRedirection();
 
 
         app.Run();
