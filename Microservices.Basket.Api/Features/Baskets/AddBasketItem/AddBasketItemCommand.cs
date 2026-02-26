@@ -1,8 +1,9 @@
-﻿using static System.Runtime.InteropServices.JavaScript.JSType;
+﻿using NewMicroservices.Shared;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Microservices.Basket.Api.Features.Baskets.AddBasketItem
 {
-    public record AddBasketItemCommand(Guid CourseId ,string CourseName ,decimal CoursePrice ,string ImageUrl);
+    public record AddBasketItemCommand(Guid CourseId ,string CourseName ,decimal CoursePrice ,string ImageUrl): IRequestByServiceResult;
     //amaç send-kron şsteklerın sayısını azaltamak olduğundan dolayı her serviste aynı alanlar tutulabılır.
 
     //AddBasketItemCommand bir Entity(Varlık) değil, bir DTO(Data Transfer Object) türüdür.
