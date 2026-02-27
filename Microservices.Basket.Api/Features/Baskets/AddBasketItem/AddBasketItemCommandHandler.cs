@@ -11,7 +11,10 @@ namespace Microservices.Basket.Api.Features.Baskets.AddBasketItem
     {
         public async Task<ServiceResult> Handle(AddBasketItemCommand request, CancellationToken cancellationToken)
         {
-           Guid userId=Guid.NewGuid();//normalde userId yi token dan alırız ama şimdilik böyle yapalım
+
+            // TODO : change userId 
+
+            Guid userId =Guid.NewGuid();//normalde userId yi token dan alırız ama şimdilik böyle yapalım
             var basketCachKey= string.Format(BasketConst.BasketCacheKey,userId);
             // "basket:{0}" 0 alan ye userId gelecek
             //string.format : metinleri dinamik, düzenli ve okunabilir bir şekilde birleştirmek için kullanılan bir yöntemdir.
@@ -31,9 +34,12 @@ namespace Microservices.Basket.Api.Features.Baskets.AddBasketItem
             if (string.IsNullOrEmpty(basketAsString))//eğer basket yoksa yenı bır basket oluşturulur ve cache'e eklenır
             {
                 currentBasket = new BasketDto(userId, [newBasketItem]);
+                await CreateCacheAsync(currentBasket, basketCachKey, cancellationToken);//cache guncellendi
+                return ServiceResult.SuccessAsNoContent();
+
             }
-            else//eğer basket varsa mevcut basket alınır ve yeni item eklenir sonra cache güncellenir
-            {
+            //eğer basket varsa mevcut basket alınır ve yeni item eklenir sonra cache güncellenir
+            
                 currentBasket = JsonSerializer.Deserialize<BasketDto>(basketAsString);//bu işlemle cache'den gelen string'i BasketDto'ya dönüştürdük
 
                 //aynı kursu birden fazla sepete eklememek için kontrol yapalım
@@ -47,22 +53,20 @@ namespace Microservices.Basket.Api.Features.Baskets.AddBasketItem
                 {
                     currentBasket.BasketItems.Remove(existingBasketItem);//var olan sılındı 
 
-                    currentBasket.BasketItems.Add(newBasketItem);//yeni item eklendi
                 }
+                currentBasket.BasketItems.Add(newBasketItem);//yeni item eklendi
                 //eğer boyle bır durum yoksa yani kurs sepette yoksa direkt yeni item eklenir
-                else
-                {
-                    currentBasket.BasketItems.Add(newBasketItem);//yeni item eklendi
-                }
+            
+            await CreateCacheAsync(currentBasket,basketCachKey, cancellationToken);//cache guncellendi
 
-
-            }
-                basketAsString= JsonSerializer.Serialize(currentBasket);//guncel basket stringe donusturuldu 
-
-                await distributeCache.SetStringAsync(basketCachKey, basketAsString, cancellationToken);//cache guncellendi
-
-                return ServiceResult.SuccessAsNoContent();
+            return ServiceResult.SuccessAsNoContent();
         }
 
+        private async Task CreateCacheAsync(BasketDto basket,string basketCachKey, CancellationToken cancellationToken)
+        {
+            var basketAsString = JsonSerializer.Serialize(basket);//guncel basket stringe donusturuldu 
+            await distributeCache.SetStringAsync(basketCachKey, basketAsString, cancellationToken);//cache guncellendi
+
+        }
     }
 }
