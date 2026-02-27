@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\NewMicroservices.Shared\NewMicroservices.Shared.csproj" />
+    <ProjectReference Include="..\NewMicroservices.Shared\NewMicroservices.Shared.csproj" />
   </ItemGroup>
 
 </Project>
