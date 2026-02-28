@@ -1,10 +1,12 @@
 ﻿using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
+using NewMicroservices.Shared.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,6 +24,8 @@ namespace NewMicroservices.Shared.Extansions
             services.AddFluentValidationAutoValidation();//otomatık validasyonu yapacak 
 
             services.AddValidatorsFromAssemblyContaining(assembly);//asemmbly contai olarak verdik 
+
+            services.AddScoped<IIdentityServices,IdentityServicesFake>();
 
             services.AddAutoMapper(assembly);//verilen assemblyi tarar ve bulur
 

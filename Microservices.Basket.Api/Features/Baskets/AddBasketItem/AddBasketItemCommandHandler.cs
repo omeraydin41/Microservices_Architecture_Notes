@@ -3,18 +3,19 @@ using Microservices.Basket.Api.Const;
 using Microservices.Basket.Api.Dto;
 using Microsoft.Extensions.Caching.Distributed;
 using NewMicroservices.Shared;
+using NewMicroservices.Shared.Services;
 using System.Text.Json;
 
 namespace Microservices.Basket.Api.Features.Baskets.AddBasketItem
 {
-    public class AddBasketItemCommandHandler(IDistributedCache distributeCache) : IRequestHandler<AddBasketItemCommand, ServiceResult>
+    public class AddBasketItemCommandHandler(IDistributedCache distributeCache,IIdentityServices identityServices) : IRequestHandler<AddBasketItemCommand, ServiceResult>
     {
         public async Task<ServiceResult> Handle(AddBasketItemCommand request, CancellationToken cancellationToken)
         {
 
             // TODO : change userId 
 
-            Guid userId =Guid.NewGuid();//normalde userId yi token dan alırız ama şimdilik böyle yapalım
+            Guid userId = identityServices.GetUserId;
             var basketCachKey= string.Format(BasketConst.BasketCacheKey,userId);
             // "basket:{0}" 0 alan ye userId gelecek
             //string.format : metinleri dinamik, düzenli ve okunabilir bir şekilde birleştirmek için kullanılan bir yöntemdir.

@@ -1,6 +1,12 @@
-@Microservices.Basket.Api_HostAddress = http://localhost:5038
+@baseAdtess = http://localhost:5038
 
-GET {{Microservices.Basket.Api_HostAddress}}/weatherforecast/
+Post {{baseAdtess}}/api/v1/baskets/item
+Content-Type: application/json  
 Accept: application/json
-
+{
+    "courseId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    "courseName": "ömer1",
+    "coursePrice": 110
+}
 ###
+    
