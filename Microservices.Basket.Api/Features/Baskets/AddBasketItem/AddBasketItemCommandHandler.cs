@@ -45,17 +45,17 @@ namespace Microservices.Basket.Api.Features.Baskets.AddBasketItem
 
                 //aynı kursu birden fazla sepete eklememek için kontrol yapalım
 
-                var existingBasketItem = currentBasket.BasketItems.FirstOrDefault(x => x.Id == request.CourseId);
+                var existingBasketItem = currentBasket.Items.FirstOrDefault(x => x.Id == request.CourseId);
                 //currentBasket : guncel basket uzerınden kontrol yapıldı 
 
                 //eğer kurs sepetteyse silinip yenısı eklenmelı 
 
                 if ( existingBasketItem is not null)
                 {
-                    currentBasket.BasketItems.Remove(existingBasketItem);//var olan sılındı 
+                    currentBasket.Items.Remove(existingBasketItem);//var olan sılındı 
 
                 }
-                currentBasket.BasketItems.Add(newBasketItem);//yeni item eklendi
+                currentBasket.Items.Add(newBasketItem);//yeni item eklendi
                 //eğer boyle bır durum yoksa yani kurs sepette yoksa direkt yeni item eklenir
             
             await CreateCacheAsync(currentBasket,basketCachKey, cancellationToken);//cache guncellendi

@@ -1,6 +1,7 @@
 ﻿using Asp.Versioning.Builder;
 using Microservices.Basket.Api.Features.Baskets.AddBasketItem;
 using Microservices.Basket.Api.Features.Baskets.DeleteBasketItem;
+using Microservices.Basket.Api.Features.Baskets.GetBasket;
 
 namespace Microservices.Basket.Api.Features.Baskets
 {
@@ -13,8 +14,10 @@ namespace Microservices.Basket.Api.Features.Baskets
              .WithApiVersionSet(apiVersionSet)//versiyonlama işlemi için tüm endpointlere burdan eklendi
 
              .AddBasketGroupItemEndpoint()
-             
-             .DeleteBasketGroupItemEndpoint();
+
+             .DeleteBasketGroupItemEndpoint()
+
+             .GetBasketGroupItemEndpoint();
         }
     }
 }
