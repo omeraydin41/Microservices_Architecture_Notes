@@ -1,12 +1,16 @@
-@baseAdtess = http://localhost:5038
-
-Post {{baseAdtess}}/api/v1/baskets/item
+@baseAdress = http://localhost:5038
+@courseId=3fa85f64-5717-4562-b3fc-2c963f66afa6
+Post {{baseAdress}}/api/v1/baskets/item
 Content-Type: application/json  
 Accept: application/json
 {
-    "courseId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    "courseId":"{{courseId}}",
     "courseName": "ömer1",
     "coursePrice": 110
 }
+###
+DELETE {{baseAdress}}/api/v1/baskets/item/{{courseId}}
+Accept: application/json
+Content-Type: application/json
 ###
     

@@ -33,7 +33,7 @@ namespace Microservices.Basket.Api.Features.Baskets.DeleteBasketItem
 
             //silinecek olan basketı bulma işlemi 
 
-            var basketItemToDelete=currentBasket!.BasketItems.FirstOrDefault(x=>x.Id==request.CourseId);
+            var basketItemToDelete=currentBasket!.BasketItems.FirstOrDefault(x=>x.Id==request.Id);
             if (basketItemToDelete is null)
             {
                 return ServiceResult.Error("basket ıtem not found",HttpStatusCode.NotFound);
