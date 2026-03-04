@@ -29,7 +29,7 @@ namespace Microservices.Basket.Api.Features.Baskets.DeleteBasketItem
                 return ServiceResult.Error("basket not found",HttpStatusCode.NotFound);
             }
             //eğer basket varsa deserialize edilmesi lazım : 
-            var currentBasket = JsonSerializer.Deserialize<BasketDto>(basketAsString);
+            var currentBasket = JsonSerializer.Deserialize<Data.Basket>(basketAsString);
 
             //silinecek olan basketı bulma işlemi 
 

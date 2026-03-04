@@ -23,6 +23,16 @@
                 return !IsApplyDiscount ? null : Items.Sum(x => x.PriceByApplyDiscountRate);
             }
         }
+        public Basket(Guid userId,List<BasketItem>items)
+        {
+            UserId = userId;
+            Items = items;
+
+        }
+        public Basket()
+        {
+            
+        }
         //ilgili baskete indirim uygula //indirim için yazılan ıkı değişken maplandi
         public void ApplyNewDiscount(string coupon, float discountRate)
         {

@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microservices.Basket.Api.Const;
+using Microservices.Basket.Api.Data;
 using Microservices.Basket.Api.Dto;
 using Microsoft.Extensions.Caching.Distributed;
 using NewMicroservices.Shared;
@@ -27,21 +28,21 @@ namespace Microservices.Basket.Api.Features.Baskets.AddBasketItem
 
             //eğer basket yoksa yenı bır basket oluşturulur ve cache'e eklenır
 
-            BasketDto? currentBasket;
+            Data.Basket currentBasket;
             var newBasketItem = 
-                new BasketItemDto(request.CourseId,request.CourseName,request.ImageUrl,
+                new BasketItem(request.CourseId,request.CourseName,request.ImageUrl,
                 request.CoursePrice,null);//AddBasketItemCommand clasından gelen alanları kullanarak yeni bir BasketItemDto oluşturduk.
 
             if (string.IsNullOrEmpty(basketAsString))//eğer basket yoksa yenı bır basket oluşturulur ve cache'e eklenır
             {
-                currentBasket = new BasketDto(userId, [newBasketItem]);
+                currentBasket = new Data.Basket(userId, [newBasketItem]);
                 await CreateCacheAsync(currentBasket, basketCachKey, cancellationToken);//cache guncellendi
                 return ServiceResult.SuccessAsNoContent();
 
             }
             //eğer basket varsa mevcut basket alınır ve yeni item eklenir sonra cache güncellenir
             
-                currentBasket = JsonSerializer.Deserialize<BasketDto>(basketAsString);//bu işlemle cache'den gelen string'i BasketDto'ya dönüştürdük
+                currentBasket = JsonSerializer.Deserialize<Data.Basket>(basketAsString);//bu işlemle cache'den gelen string'i BasketDto'ya dönüştürdük
 
                 //aynı kursu birden fazla sepete eklememek için kontrol yapalım
 
@@ -63,7 +64,7 @@ namespace Microservices.Basket.Api.Features.Baskets.AddBasketItem
             return ServiceResult.SuccessAsNoContent();
         }
 
-        private async Task CreateCacheAsync(BasketDto basket,string basketCachKey, CancellationToken cancellationToken)
+        private async Task CreateCacheAsync(Data.Basket basket,string basketCachKey, CancellationToken cancellationToken)
         {
             var basketAsString = JsonSerializer.Serialize(basket);//guncel basket stringe donusturuldu 
             await distributeCache.SetStringAsync(basketCachKey, basketAsString, cancellationToken);//cache guncellendi

@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using Microservices.Basket.Api.Const;
 using Microservices.Basket.Api.Dto;
 using Microsoft.Extensions.Caching.Distributed;
@@ -11,7 +12,8 @@ namespace Microservices.Basket.Api.Features.Baskets.GetBasket
 {
     public class GetBasketQueryHandler(
         IDistributedCache distributedCache,//db de işlem yapmak için 
-        IIdentityServices identityServices): //kullanıcının ID sını getirir
+        IIdentityServices identityServices,
+        IMapper mapper): //kullanıcının ID sını getirir
         IRequestHandler<GetBasketQuery, ServiceResult<BasketDto>>//GetBasketQuery alıp geriye ServiceResult turunde BasketDto donuyoruz 
     {
         public async Task<ServiceResult<BasketDto>> Handle(GetBasketQuery request, CancellationToken cancellationToken)
@@ -27,11 +29,11 @@ namespace Microservices.Basket.Api.Features.Baskets.GetBasket
             }
             
             //eğer null değilde data var ise data geriye donulur.
-            var basket =JsonSerializer.Deserialize<BasketDto>(basketAsString)!;
-            return  ServiceResult<BasketDto>.SuccessAsOk(basket);
+            var basket =JsonSerializer.Deserialize<Data.Basket>(basketAsString)!;
 
+            var basketDto=mapper.Map<BasketDto>(basket);
 
-
+            return  ServiceResult<BasketDto>.SuccessAsOk(basketDto);
         }
     }
 }
