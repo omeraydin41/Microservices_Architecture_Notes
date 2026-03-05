@@ -1,5 +1,4 @@
 ﻿using NewMicroservices.Shared;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Microservices.Basket.Api.Features.Baskets.AddBasketItem
 {

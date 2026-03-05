@@ -1,6 +1,4 @@
 ﻿using MediatR;
-using Microservices.Basket.Api.Const;
-using Microservices.Basket.Api.Dto;
 using Microsoft.Extensions.Caching.Distributed;
 using NewMicroservices.Shared;
 using NewMicroservices.Shared.Extansions;
@@ -13,28 +11,29 @@ namespace Microservices.Basket.Api.Features.Baskets.RemoveDiscountCoupon
 
     public record RemoveDiscountCouponCommand:IRequestByServiceResult;
 
-    public class RemoveDiscountCouponCommandHandler(IIdentityServices identityServices,IDistributedCache distributedCache) : 
+    public class RemoveDiscountCouponCommandHandler(IIdentityServices identityServices,IDistributedCache distributedCache,BasketService basketService) : 
                  IRequestHandler<RemoveDiscountCouponCommand, ServiceResult>
     {
         public async Task<ServiceResult> Handle(RemoveDiscountCouponCommand request, CancellationToken cancellationToken)
         {
-            var cacheKey = string.Format(BasketConst.BasketCacheKey,identityServices.GetUserId);
-            var basketAsString = await distributedCache.GetStringAsync(cacheKey,token:cancellationToken);
+            //var cacheKey = string.Format(BasketConst.BasketCacheKey,identityServices.GetUserId);
+            var basketAsJson = await basketService.GetBasketFromChace(cancellationToken);
+                //= await distributedCache.GetStringAsync(cacheKey,token:cancellationToken);
 
             //basket varmı yokmu onu kontrol etmeliyiz
-            if (string.IsNullOrEmpty(basketAsString))//Clean codeye gore önce olumsuz : basket datası yoksa 
+            if (string.IsNullOrEmpty(basketAsJson))//Clean codeye gore önce olumsuz : basket datası yoksa 
             {
                 return ServiceResult.Error("basket not fount", HttpStatusCode.NotFound);
             }
             //basket datası varsa alınması 
 
-            var basket =JsonSerializer.Deserialize<Data.Basket>(basketAsString);//basket Deserialize edildi.
+            var basket =JsonSerializer.Deserialize<Data.Basket>(basketAsJson);//basket Deserialize edildi.
 
             basket!.ClearDiscount();//basketi temizle //<Data.Basket uzerınden gelen yardımcı method
 
             //temızlenen basketın serialize edilerek  kaydedilmesi cache uzerine
-            basketAsString = JsonSerializer.Serialize(basket);
-            await distributedCache.SetStringAsync(cacheKey, basketAsString, token: cancellationToken);
+            basketAsJson = JsonSerializer.Serialize(basket);
+            await basketService.CreateBasketCacheAsync(basket, cancellationToken);
 
             return ServiceResult.SuccessAsNoContent();
         }

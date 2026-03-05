@@ -15,7 +15,7 @@ public class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
         // -----------------------------------
-
+        builder.Services.AddScoped<BasketService>();
         builder.Services.AddCommonServiceExt(typeof(BasketAssembly));
 
         builder.Services.AddStackExchangeRedisCache(options =>

@@ -9,14 +9,14 @@ using System.Text.Json;
 
 namespace Microservices.Basket.Api.Features.Baskets.ApplyDiscountCoupon
 {
-    public class ApplyDiscountCouponCommandHandler(IIdentityServices identityServices,IDistributedCache distributedCache) 
+    public class ApplyDiscountCouponCommandHandler(IDistributedCache distributedCache,BasketService basketService) 
         : IRequestHandler<ApplyDiscountCouponCommand, ServiceResult>//handler edileceek class ve gerşye donş turü
     {
         public async Task<ServiceResult> Handle(ApplyDiscountCouponCommand request, CancellationToken cancellationToken) 
         {
             //indirim için öncesepettekı datayı çektik
-            var cacheKey = string.Format(BasketConst.BasketCacheKey, identityServices.GetUserId);
-            var basketAsJson=await distributedCache.GetStringAsync(cacheKey,token:cancellationToken);
+
+            var basketAsJson =await basketService.GetBasketFromChace(cancellationToken);
 
             //data yoksa :
             if (string.IsNullOrEmpty(basketAsJson))
@@ -34,7 +34,8 @@ namespace Microservices.Basket.Api.Features.Baskets.ApplyDiscountCoupon
             basket.ApplyNewDiscount(request.Coupon, request.DiscountRate);
 
             basketAsJson = JsonSerializer.Serialize(basket);
-            await distributedCache.SetStringAsync(cacheKey, basketAsJson, token:cancellationToken);
+
+            await basketService.CreateBasketCacheAsync(basket,cancellationToken);
 
             return ServiceResult.SuccessAsNoContent();
         }

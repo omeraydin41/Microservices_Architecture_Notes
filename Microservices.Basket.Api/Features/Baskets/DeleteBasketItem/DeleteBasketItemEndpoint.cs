@@ -1,8 +1,5 @@
 ﻿using MediatR;
-using Microservices.Basket.Api.Features.Baskets.AddBasketItem;
-using Microsoft.AspNetCore.Mvc;
 using NewMicroservices.Shared.Extansions;
-using NewMicroservices.Shared.Filters;
 
 namespace Microservices.Basket.Api.Features.Baskets.DeleteBasketItem
 {
