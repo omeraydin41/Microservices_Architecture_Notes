@@ -25,6 +25,12 @@ namespace Microservices.Basket.Api.Features.Baskets.ApplyDiscountCoupon
             }
             //bunu çevirme varkti:
             var basket = JsonSerializer.Deserialize<Data.Basket>(basketAsJson);
+
+            if (!basket.Items.Any())//içind bir data yok ıse
+            {
+                return ServiceResult<BasketDto>.Error("basket item not found", HttpStatusCode.NotFound);
+            }
+
             basket.ApplyNewDiscount(request.Coupon, request.DiscountRate);
 
             basketAsJson = JsonSerializer.Serialize(basket);

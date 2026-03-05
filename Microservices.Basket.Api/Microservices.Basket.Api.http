@@ -18,4 +18,11 @@ DELETE {{baseAdress}}/api/v1/baskets/item/{{courseId}}
 Accept: application/json
 Content-Type: application/json
 ###
-    
+Put {{baseAdress}}/api/v1/baskets/apply-discount-rate
+Content-Type: application/json  
+Accept: application/json
+{
+    "coupon":"abcdef",
+    "discountrate": 0.2   
+}
+###
