@@ -57,8 +57,13 @@ namespace Microservices.Basket.Api.Features.Baskets.AddBasketItem
 
                 }
                 currentBasket.Items.Add(newBasketItem);//yeni item eklendi
-                //eğer boyle bır durum yoksa yani kurs sepette yoksa direkt yeni item eklenir
-            
+                                                       //eğer boyle bır durum yoksa yani kurs sepette yoksa direkt yeni item eklenir
+
+            //mevcut sepette ındırım varsa bunu uygulatmama lazım 
+
+            currentBasket.ApplyAviableDiscount();//mevcut sepette ındırım varsa ygulayan yardımcı method
+
+
             await CreateCacheAsync(currentBasket,basketCachKey, cancellationToken);//cache guncellendi
 
             return ServiceResult.SuccessAsNoContent();

@@ -11,18 +11,21 @@ Accept: application/json
 {
     "courseId":"{{courseId}}",
     "courseName": "ömer1",
-    "coursePrice": 110
+    "coursePrice": 30
 }
 ###
 DELETE {{baseAdress}}/api/v1/baskets/item/{{courseId}}
 Accept: application/json
 Content-Type: application/json
 ###
-Put {{baseAdress}}/api/v1/baskets/apply-discount-rate
+Put {{baseAdress}}/api/v1/baskets/apply-discount-coupon
 Content-Type: application/json  
 Accept: application/json
 {
     "coupon":"abcdef",
     "discountrate": 0.2   
 }
+###
+delete {{baseAdress}}/api/v1/baskets/remove-discount-coupon
+Accept: application/json
 ###

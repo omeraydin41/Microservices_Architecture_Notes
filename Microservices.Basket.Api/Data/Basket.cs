@@ -1,4 +1,6 @@
-﻿namespace Microservices.Basket.Api.Data
+﻿using System.Text.Json.Serialization;
+
+namespace Microservices.Basket.Api.Data
 {
     public class Basket//ANAMİC MODEL => RİCH DOMAİN MODEL(behavior + data)
     {
@@ -9,12 +11,13 @@
 
 
         //indirim uygulandımı EVET/HAYIR = BOOL //DiscountRate(indirim oranı)>0 ve kupon nulll olmayacak || iki şart varsa indirim uygulanmıştır
-        public bool IsApplyDiscount => DiscountRate is > 0 && !string.IsNullOrEmpty(Coupon);//
+        [JsonIgnore]public bool IsApplyDiscount => DiscountRate is > 0 && !string.IsNullOrEmpty(Coupon);//
 
         //total price alındı
-        public decimal TotalPrice => Items.Sum(x => x.Price);//items listesi BasketItem Tutar ve BasketItem içinde Priceyi aldık
+        [JsonIgnore] public decimal TotalPrice => Items.Sum(x => x.Price);//items listesi BasketItem Tutar ve BasketItem içinde Priceyi aldık
 
         //indirim uygulanmış totalprice
+        [JsonIgnore]
         public decimal? TotalPriceWithAppliedDiscount
         {
             //indirim uygulayabilmek için şartlar yazılacak //get var sadece

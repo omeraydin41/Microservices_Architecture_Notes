@@ -10,10 +10,10 @@ namespace Microservices.Basket.Api.Features.Baskets.ApplyDiscountCoupon
 
         public static RouteGroupBuilder ApplyDiscountCouponGroupItemEndpoint(this RouteGroupBuilder group)
         {
-            group.MapPut("/apply-discount-rate",//put isteği // var olan basketu guncellem işlemi yapıyoruz
+            group.MapPut("/apply-discount-coupon",//put isteği // var olan basketu guncellem işlemi yapıyoruz
                 async (ApplyDiscountCouponCommand command, IMediator mediator) =>
                 (await mediator.Send(command)).ToGenericResult())// commandı gönder 
-                .WithName("ApplyDiscountRate")//swagger adı 
+                .WithName("ApplyDiscountCoupon")//swagger adı 
                 .MapToApiVersion(1, 0)//kullanılacak versiyon
                 .AddEndpointFilter<ValidationFilter<ApplyDiscountCouponValidator>>();//valide edilecek class
             return group;
