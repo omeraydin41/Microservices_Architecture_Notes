@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 
-namespace Microservice.Discount.Api.Options
+namespace NewMicroservice.Discount.Api.Options
 {
     public static class OptionExt
     {

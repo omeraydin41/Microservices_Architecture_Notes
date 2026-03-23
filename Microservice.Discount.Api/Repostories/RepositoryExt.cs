@@ -1,11 +1,11 @@
 ﻿#region
 
-using Microservice.Discount.Api.Options;
+using NewMicroservice.Discount.Api.Options;
 using MongoDB.Driver;
 
 #endregion
 
-namespace UdemyNewMicroservice.Discount.Api.Repositories;
+namespace NewMicroservice.Discount.Api.Repositories;
 
 public static class RepositoryExt
 {

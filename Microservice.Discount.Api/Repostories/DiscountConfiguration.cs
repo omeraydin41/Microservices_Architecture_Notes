@@ -5,7 +5,7 @@ using MongoDB.EntityFrameworkCore.Extensions;
 using AutoMapper.Features;
 using MongoDB.Driver.Core.Misc;
 
-namespace UdemyNewMicroservice.Discount.Api.Repositories;
+namespace NewMicroservice.Discount.Api.Repositories;
 
 public class DiscountConfiguration : IEntityTypeConfiguration<Microservice.Discount.Api.Features.Discount.Discount>
 {

@@ -1,6 +1,6 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 
-namespace UdemyNewMicroservice.Discount.Api.Repositories;
+namespace NewMicroservice.Discount.Api.Repositories;
 
 public class BaseEntity
 {

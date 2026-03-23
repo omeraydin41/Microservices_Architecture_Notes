@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Microservice.Discount.Api.Options
+namespace   NewMicroservice.Discount.Api.Options
 {
     public class MongoOption
     {

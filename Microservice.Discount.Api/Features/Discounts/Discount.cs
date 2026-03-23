@@ -1,4 +1,4 @@
-﻿using UdemyNewMicroservice.Discount.Api.Repositories;
+﻿using NewMicroservice.Discount.Api.Repositories;
 
 namespace Microservice.Discount.Api.Features.Discount
 {
