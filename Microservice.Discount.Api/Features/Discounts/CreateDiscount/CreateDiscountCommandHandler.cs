@@ -19,7 +19,7 @@ public class CreateDiscountCommandHandler(AppDbContext context, IIdentityService
             return ServiceResult.Error("Discount code already exists for this user", HttpStatusCode.BadRequest);
 
 
-        var discount = new Microsoft.AspNetCore.DataProtection.Repositories.Discounts
+        var discount = new Discount
         {
             Id = NewId.NextSequentialGuid(),
             Code = request.Code,
