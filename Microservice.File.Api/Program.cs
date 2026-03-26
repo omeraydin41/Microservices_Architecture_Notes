@@ -23,6 +23,8 @@ builder.Services.AddSingleton<IFileProvider>//IFileProvider : klasorlere eriþme 
 
 var app = builder.Build();
 
+app.UseStaticFiles();
+
 // Geliþtirme ortamýnda Swagger'ý aktif edildi
 if (app.Environment.IsDevelopment())
 {
