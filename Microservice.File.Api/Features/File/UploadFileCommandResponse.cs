@@ -1,4 +1,4 @@
-﻿namespace Microservice.File.Api.Features.File.Upload
+﻿namespace Microservice.File.Api.Features.File
 {
     public record UploadFileCommandResponse
         (string FileName

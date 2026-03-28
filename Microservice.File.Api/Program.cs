@@ -1,4 +1,5 @@
 using Microservice.File.Api;
+using Microservice.File.Api.Features.File;
 using Microsoft.Extensions.FileProviders;
 using NewMicroservices.Shared.Extansions;
 
@@ -23,14 +24,16 @@ builder.Services.AddSingleton<IFileProvider>//IFileProvider : klasorlere eriþme 
 
 var app = builder.Build();
 
-app.UseStaticFiles();
+app.UseStaticFiles();///wwwroot klasoru açýldý
+
+app.AddFileGroupEndpointExt(app.AddVersionSetExt());//ENDPOÝNTLERÝN GURUPLANDIÐI CLASS DI'YE EKLENDÝ
 
 // Geliþtirme ortamýnda Swagger'ý aktif edildi
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-    app.MapOpenApi();
+   // app.MapOpenApi();
 }
 app.UseHttpsRedirection();
 app.Run();
