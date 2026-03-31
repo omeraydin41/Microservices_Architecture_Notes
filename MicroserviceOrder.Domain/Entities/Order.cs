@@ -11,15 +11,15 @@ namespace MicroserviceOrder.Domain.Entities
     {
         
         public string Code { get; set; } = null!;
-        public DateTime CreatedTime { get; set; }
+        public DateTime Created { get; set; }
         public Guid BuyerId { get; set; }
         public OrderStatus Status { get; set; }
-        public  int AddresId { get; set; }//1 order birden fazla addres alabılır 
+        public  int AddressId { get; set; }//1 order birden fazla addres alabılır 
         public decimal TotalPrice {  get; set; }
         public float? DiscountRate {  get; set; }
         public Guid PayementId {  get; set; }
         public List<OrderItem> OrderItems { get; set; } = new();
-        public Adress Adress { get; set; } = null!;//null olamaz
+        public Adress Address { get; set; } = null!;//null olamaz
 
         public static string GenerateCode()
         {
@@ -40,9 +40,9 @@ namespace MicroserviceOrder.Domain.Entities
                 Id=NewId.NextGuid(),
                 Code = GenerateCode(),
                 BuyerId = buyerId,
-                CreatedTime = DateTime.Now,
+                Created= DateTime.Now,
                 Status = OrderStatus.WaitingForPayment,
-                AddresId = adressId.Id,
+                AddressId = adressId.Id,
                 TotalPrice = 0,
                 OrderItems = new List<OrderItem>(),
                 DiscountRate = discountRate
