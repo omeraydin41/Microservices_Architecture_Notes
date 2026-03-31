@@ -10,28 +10,28 @@ namespace MicroserviceOrder.Domain.Entities
     {//OrderItem keni çapında olduğunden int olabilir ama ORDERİN KENİSİ GUİD
 
         public Guid ProductId { get; set; }
-        public string ProductName { get; set; } = default!;//null olamaz dolmak zorunda 
+        public string ProductName { get; set; } = null!;//null olamaz dolmak zorunda 
         public decimal UnitPrice { get; set; }
-
-
+        public Guid  OrderId { get; set; }
+        public Order Order { get; set; } = null!;//navigation prop
 
         #region
         //rich domain : bunlar behavior methotdur
 
-        public void SetItem(Guid ProductId, string ProductName, decimal UnitPrice)
+        public void SetItem(Guid productId, string productName, decimal unitPrice)
         {
             if (string.IsNullOrEmpty(ProductName))
             {
-                throw new ArgumentNullException("ProductName can not is empty");
+                throw new ArgumentNullException(nameof(productName),"ProductName can not is empty");
             }
             if (UnitPrice<=0)
             {
-                throw new ArgumentNullException("UnitPrice can not be less than equal the zero.");
+                throw new ArgumentNullException(nameof(unitPrice),"UnitPrice can not be less than equal the zero.");
             }
 
-            this.ProductId=ProductId;
-            this.ProductName=ProductName;
-            this.UnitPrice=UnitPrice;
+            this.ProductId=productId;
+            this.ProductName=productName;
+            this.UnitPrice=unitPrice;
         }
 
         //fiyatı güncelleme
@@ -42,7 +42,7 @@ namespace MicroserviceOrder.Domain.Entities
         }
 
         //indirim uygulama 
-        public void ApplyDiscount(double discountPercentage)
+        public void ApplyDiscount(float discountPercentage)
         {
             if (discountPercentage<0||discountPercentage>100)
             {
