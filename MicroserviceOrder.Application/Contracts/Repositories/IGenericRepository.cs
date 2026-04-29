@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MicroserviceOrder.Application.Contracts
+namespace MicroserviceOrder.Application.Contracts.Repositories
 {
     // TId: Kimlik tipi (int, Guid), TEntity: BaseEntity'den türeyen sınıflar için genel arayüz
     public interface IGenericRepository<TId, TEntity> where TId : struct where TEntity : BaseEntity<TId>
