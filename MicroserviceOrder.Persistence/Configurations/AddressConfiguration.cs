@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace MicroserviceOrder.Persistence.Configurations
 {
-    public class AddressConfiguration : IEntityTypeConfiguration<Adress>//order.domain altında bulunan Adress clasını conf etmek için IEntityTypeConfiguration interfacesını kullanıyoruz.
+    public class AddressConfiguration : IEntityTypeConfiguration<Address>//order.domain altında bulunan Adress clasını conf etmek için IEntityTypeConfiguration interfacesını kullanıyoruz.
     {
-        public void Configure(EntityTypeBuilder<Adress> builder)
+        public void Configure(EntityTypeBuilder<Address> builder)
         {
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).UseIdentityColumn();

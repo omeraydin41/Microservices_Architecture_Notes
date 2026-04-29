@@ -19,7 +19,7 @@ namespace MicroserviceOrder.Domain.Entities
         public float? DiscountRate {  get; set; }
         public Guid PayementId {  get; set; }
         public List<OrderItem> OrderItems { get; set; } = new();
-        public Adress Address { get; set; } = null!;//null olamaz
+        public Address Address { get; set; } = null!;//null olamaz
 
         public static string GenerateCode()
         {
@@ -33,7 +33,7 @@ namespace MicroserviceOrder.Domain.Entities
             return orderCode.ToString();
         }
 
-        public static Order CreateUnPaidOrder(Guid buyerId,float discountRate,Adress adressId)
+        public static Order CreateUnPaidOrder(Guid buyerId,float discountRate,Address adressId)
         {
             return new Order
             {

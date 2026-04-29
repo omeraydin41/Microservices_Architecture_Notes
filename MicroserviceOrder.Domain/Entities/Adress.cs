@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MicroserviceOrder.Domain.Entities
 {
-    public class Adress : BaseEntity<int>//BaseEntity generic tiptedir ve içindeki TEntityId' nin tipi int olarak belirlendi
+    public class Address : BaseEntity<int>//BaseEntity generic tiptedir ve içindeki TEntityId' nin tipi int olarak belirlendi
     {
         public string Province { get; set; } = null!;
         public string District { get; set; } = null!;

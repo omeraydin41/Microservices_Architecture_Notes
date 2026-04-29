@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace MicroserviceOrder.Domain.Entities
-{ //anemic model => rich domain modele çevrilme amaçlanır(yardımcı method eklenmesi)
+{ //anemic model => rich domain modele çevrilme amaçlanır(yardımcı method eklenmesi) anomıc model sadece proplar varsa 
     public class OrderItem : BaseEntity<int>
     {//OrderItem keni çapında olduğunden int olabilir ama ORDERİN KENİSİ GUİD
 
@@ -17,7 +17,7 @@ namespace MicroserviceOrder.Domain.Entities
 
         #region
         //rich domain : bunlar behavior methotdur
-
+        //behavior methods davranışı etkıleyen methodlardır 
         public void SetItem(Guid productId, string productName, decimal unitPrice)
         {
             if (string.IsNullOrEmpty(ProductName))

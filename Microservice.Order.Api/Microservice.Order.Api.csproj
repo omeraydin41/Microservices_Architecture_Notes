@@ -8,10 +8,15 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.6">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\MicroserviceOrder.Application\MicroserviceOrder.Application.csproj" />
+    <ProjectReference Include="..\MicroserviceOrder.Domain\MicroserviceOrder.Domain.csproj" />
     <ProjectReference Include="..\MicroserviceOrder.Persistence\MicroserviceOrder.Persistence.csproj" />
   </ItemGroup>
 
